@@ -4,7 +4,7 @@ import AppKit
 class ListViewController: NSViewController, NSDraggingDestination {
     
     @IBOutlet weak var itemsTitleView: NSTextField!
-    @IBOutlet weak var itemsTableView: NSTableView! //MyTableView!
+    @IBOutlet weak var itemsTableView: MyTableView!
     @IBOutlet weak var navigationButton: NSButton!
     @IBOutlet weak var favouriteButton: NSButton!
     
@@ -17,7 +17,7 @@ class ListViewController: NSViewController, NSDraggingDestination {
     var viewCreatedDate: NSTimeInterval = NSDate().timeIntervalSince1970
     let rowType = "RowType"
     
-    // Drag and drop knowstack.com
+    // Drag and drop
     var itemsDataArray:[String] = []
 
     let fs: NSFileManager = NSFileManager.defaultManager()
@@ -31,9 +31,8 @@ class ListViewController: NSViewController, NSDraggingDestination {
         print("view.bounds.size.height \(view.bounds.size.height)")
         print("view.bounds.origin.y \(view.bounds.origin.y)")
 
-
         
-        // Drag and drop knowstack.com
+        // Drag and drop
         view.registerForDraggedTypes([rowType, NSFilenamesPboardType])
     }
     

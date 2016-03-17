@@ -24,6 +24,7 @@ class MyTableView: NSTableView {
     
     override func mouseDown(theEvent: NSEvent) {
         // do nothing
+        print("Mouse down")
     }
 
     override func scrollWheel(theEvent: NSEvent) {

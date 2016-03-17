@@ -13,7 +13,6 @@
 		B6084B381C85B59C005093F2 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6084B361C85B59C005093F2 /* Model.swift */; settings = {ASSET_TAGS = (); }; };
 		B6084B561C85D40F005093F2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6084B541C85D40F005093F2 /* ViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		B6084B571C85D40F005093F2 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6084B551C85D40F005093F2 /* ViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		B6247F741C9B2B8E00A2C445 /* MyWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6247F731C9B2B8E00A2C445 /* MyWindow.swift */; settings = {ASSET_TAGS = (); }; };
 		B6429FA91C85EF2400558CDF /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6429FA71C85EF2400558CDF /* ListView.swift */; settings = {ASSET_TAGS = (); }; };
 		B6429FAA1C85EF2400558CDF /* ListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6429FA81C85EF2400558CDF /* ListView.xib */; settings = {ASSET_TAGS = (); }; };
 		B6FF07461C99D2EF0005A688 /* MyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FF07451C99D2EF0005A688 /* MyTableView.swift */; settings = {ASSET_TAGS = (); }; };
@@ -28,7 +27,6 @@
 		B6084B361C85B59C005093F2 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		B6084B541C85D40F005093F2 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B6084B551C85D40F005093F2 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
-		B6247F731C9B2B8E00A2C445 /* MyWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWindow.swift; sourceTree = "<group>"; };
 		B6429FA71C85EF2400558CDF /* ListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		B6429FA81C85EF2400558CDF /* ListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListView.xib; sourceTree = "<group>"; };
 		B6FF07451C99D2EF0005A688 /* MyTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTableView.swift; sourceTree = "<group>"; };
@@ -65,7 +63,6 @@
 			isa = PBXGroup;
 			children = (
 				B6084B281C85B479005093F2 /* AppDelegate.swift */,
-				B6247F731C9B2B8E00A2C445 /* MyWindow.swift */,
 				B6084B541C85D40F005093F2 /* ViewController.swift */,
 				B6429FA71C85EF2400558CDF /* ListView.swift */,
 				B6FF07451C99D2EF0005A688 /* MyTableView.swift */,
@@ -153,7 +150,6 @@
 				B6429FA91C85EF2400558CDF /* ListView.swift in Sources */,
 				B6FF07461C99D2EF0005A688 /* MyTableView.swift in Sources */,
 				B6084B381C85B59C005093F2 /* Model.swift in Sources */,
-				B6247F741C9B2B8E00A2C445 /* MyWindow.swift in Sources */,
 				B6084B291C85B479005093F2 /* AppDelegate.swift in Sources */,
 				B6084B561C85D40F005093F2 /* ViewController.swift in Sources */,
 			);

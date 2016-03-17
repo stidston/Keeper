@@ -10,7 +10,7 @@
                 <outlet property="favouriteButton" destination="d6w-5f-KOa" id="dyA-VK-1MH"/>
                 <outlet property="itemImageView" destination="cap-H5-asf" id="1vt-Jh-etC"/>
                 <outlet property="itemTitleView" destination="nQJ-qz-VBm" id="eO1-s7-l6r"/>
-                <outlet property="itemsTableView" destination="NIZ-9j-rLy" id="Mte-EW-URi"/>
+                <outlet property="itemsTableView" destination="NIZ-9j-rLy" id="Aux-Sq-Fxd"/>
                 <outlet property="itemsTitleView" destination="VT9-vO-Cv3" id="MAj-0d-RQv"/>
                 <outlet property="navigationButton" destination="Uk5-Kk-Dvz" id="GXv-b5-hGr"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
@@ -28,8 +28,8 @@
                         <rect key="frame" x="1" y="1" width="228" height="370"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="NIZ-9j-rLy" userLabel="Items Table View">
-                                <rect key="frame" x="0.0" y="0.0" width="228" height="370"/>
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="NIZ-9j-rLy" userLabel="Items Table View" customClass="MyTableView" customModule="FileManagerProgram" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="228" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <animations/>
                                 <size key="intercellSpacing" width="3" height="2"/>
