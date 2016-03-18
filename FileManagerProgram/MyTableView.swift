@@ -21,11 +21,6 @@ class MyTableView: NSTableView {
         let delegate = app.delegate as! AppDelegate
         return delegate.viewController.scrollView
     }
-    
-    override func mouseDown(theEvent: NSEvent) {
-        // do nothing
-        print("Mouse down")
-    }
 
     override func scrollWheel(theEvent: NSEvent) {
         if theEvent.scrollingDeltaY == 0 {

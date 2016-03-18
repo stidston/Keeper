@@ -15,7 +15,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var viewController: ViewController!
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
-        window.windowDidResize
         viewController = ViewController(nibName: "ViewController", bundle: nil)
         viewController.view.translatesAutoresizingMaskIntoConstraints = false
         window.contentView!.addSubview(viewController.view)
@@ -32,8 +31,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func refresh() {
         viewController.refresh()
     }
-    
-    func window
     
     func applicationShouldHandleReopen(theApplication: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
         if (flag) {
@@ -92,14 +89,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func reset(sender: NSToolbarItem) {
-        viewController.resetDefaults()
-//        viewController.putAway()
-        viewController.outlineView.reloadData()
-        viewController.outlineView?.expandItem(nil, expandChildren: true)
+        viewController.resetToFavourites()
 
-        // use function to remove columnItems with pinType to respective source lists
-        // mark them as closed
-        // remove all listViews
+    }
+    
+    @IBAction func closeAll(sender: NSToolbarItem) {
+        viewController.closeAll()
     }
     
 }

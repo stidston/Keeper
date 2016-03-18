@@ -157,6 +157,7 @@ class ViewController: NSViewController {
     func refresh() {
         for var i = 0; i < numListViews; i++ {
             listViews[i].listItems(listViews[i].listPath)
+            listViews[i].setTrackingArea()
         }
         outlineView.reloadData()
     }
@@ -291,7 +292,23 @@ class ViewController: NSViewController {
         
         saveDefaultsColumns()
     }
+    
+    func closeAll() {
+        let iMax = numListViews
+        for var i = 0; i < iMax; i++ {
+            removeListViewAtIndex(0)
+        }
+    }
+    
+    func resetToFavourites() {
+        closeAll()
         
+        let iMax = favouriteItems.items.count
+        for var i = 0; i < iMax; i++ {
+            openListView(favouriteItems.items[i].data.path)
+        }
+    }
+    
     func favouriteListViewAtIndex(index: Int) {
         let listPath = getPathWithTrailingSlash(listViews[index].listPath)
         

@@ -16,6 +16,7 @@ class ListViewController: NSViewController, NSDraggingDestination {
     var favouritesPaths: Array<String> = []
     var viewCreatedDate: NSTimeInterval = NSDate().timeIntervalSince1970
     let rowType = "RowType"
+    var trackingArea: NSTrackingArea = NSTrackingArea()
     
     // Drag and drop
     var itemsDataArray:[String] = []
@@ -28,9 +29,7 @@ class ListViewController: NSViewController, NSDraggingDestination {
         itemsTitleView.stringValue = getFolderNameFromPath(listPath)
         listItems(listPath)
         
-        print("view.bounds.size.height \(view.bounds.size.height)")
-        print("view.bounds.origin.y \(view.bounds.origin.y)")
-
+        setTrackingArea()
         
         // Drag and drop
         view.registerForDraggedTypes([rowType, NSFilenamesPboardType])
@@ -53,6 +52,12 @@ class ListViewController: NSViewController, NSDraggingDestination {
     override func loadView() {
         super.loadView()
         view.identifier = String(viewCreatedDate)
+    }
+    
+    func setTrackingArea() {
+        view.removeTrackingArea(trackingArea)
+        trackingArea = NSTrackingArea(rect: CGRect(x: 0,y: view.bounds.height-30,width: 230,height: 30), options: [NSTrackingAreaOptions.MouseEnteredAndExited, NSTrackingAreaOptions.ActiveAlways], owner: self, userInfo: nil)
+        view.addTrackingArea(trackingArea)
     }
     
     func getPathWithTrailingSlash(path: String) -> String {
@@ -153,7 +158,7 @@ class ListViewController: NSViewController, NSDraggingDestination {
     
     func updateNavigationButton() {
         if getPathWithTrailingSlash(listPath) == getPathWithTrailingSlash(rootPath) {
-            navigationButton.image = NSImage(named: "NSStatusUnavailable")
+            navigationButton.image = NSImage(named: "NSStopProgressTemplate")
             listIsRoot = true
         } else {
             navigationButton.image = NSImage(named: "NSGoLeftTemplate")

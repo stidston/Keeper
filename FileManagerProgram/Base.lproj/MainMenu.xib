@@ -687,7 +687,7 @@
                             <rect key="frame" x="0.0" y="14" width="77" height="32"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <animations/>
-                            <buttonCell key="cell" type="push" title="Open" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="IAQ-Y2-4Ga">
+                            <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="IAQ-Y2-4Ga">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -710,7 +710,7 @@
                             </buttonCell>
                         </button>
                         <connections>
-                            <action selector="reset:" target="Voe-Tx-rLC" id="eTB-DA-5fa"/>
+                            <action selector="closeAll:" target="Voe-Tx-rLC" id="fXc-N8-VdD"/>
                         </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="18EB99D2-C404-430E-80EF-058E889A15C8" label="Reset" paletteLabel="Reset" id="CxD-3p-spu">
@@ -727,13 +727,12 @@
                             </buttonCell>
                         </button>
                         <connections>
-                            <action selector="reset:" target="Voe-Tx-rLC" id="kI5-AA-FFH"/>
+                            <action selector="reset:" target="Voe-Tx-rLC" id="1uc-fD-e4b"/>
                         </connections>
                     </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="c6D-A9-5lH"/>
-                    <toolbarItem reference="CxD-3p-spu"/>
                 </defaultToolbarItems>
             </toolbar>
             <point key="canvasLocation" x="355" y="361"/>
