@@ -10,6 +10,7 @@
                 <outlet property="favouriteButton" destination="d6w-5f-KOa" id="dyA-VK-1MH"/>
                 <outlet property="itemImageView" destination="cap-H5-asf" id="1vt-Jh-etC"/>
                 <outlet property="itemTitleView" destination="nQJ-qz-VBm" id="eO1-s7-l6r"/>
+                <outlet property="itemsScrollView" destination="mRg-8h-4Le" id="2GS-Lk-RVU"/>
                 <outlet property="itemsTableView" destination="NIZ-9j-rLy" id="Aux-Sq-Fxd"/>
                 <outlet property="itemsTitleView" destination="VT9-vO-Cv3" id="MAj-0d-RQv"/>
                 <outlet property="navigationButton" destination="Uk5-Kk-Dvz" id="GXv-b5-hGr"/>
@@ -18,17 +19,17 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView identifier="ListView" focusRingType="exterior" id="Hz6-mo-xeY">
+        <customView identifier="ListView" focusRingType="exterior" id="Hz6-mo-xeY" customClass="MyView" customModule="FileManagerProgram">
             <rect key="frame" x="0.0" y="0.0" width="230" height="402"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="mRg-8h-4Le">
+                <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="mRg-8h-4Le" customClass="ItemsScrollView" customModule="FileManagerProgram" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="230" height="372"/>
                     <clipView key="contentView" id="kWo-Qa-RpR">
                         <rect key="frame" x="1" y="1" width="228" height="370"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="NIZ-9j-rLy" userLabel="Items Table View" customClass="MyTableView" customModule="FileManagerProgram" customModuleProvider="target">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="NIZ-9j-rLy" userLabel="Items Table View" customClass="ItemsTableView" customModule="FileManagerProgram" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="228" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <animations/>
@@ -61,8 +62,8 @@
                                                         <animations/>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="ydC-0y-Jle"/>
                                                     </imageView>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nQJ-qz-VBm">
-                                                        <rect key="frame" x="30" y="0.0" width="220" height="17"/>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nQJ-qz-VBm">
+                                                        <rect key="frame" x="30" y="0.0" width="177" height="17"/>
                                                         <animations/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="0zv-3V-7Zy">
                                                             <font key="font" metaFont="cellTitle"/>
