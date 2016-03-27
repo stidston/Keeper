@@ -33,22 +33,7 @@ class ViewController: NSViewController {
 
         let defaults = NSUserDefaults.standardUserDefaults()
         
-        // open DefaultsFavourites
-        if let favouritesPaths = defaults.stringForKey(defaultsKeys.favouritesPaths) {
-            var favouritesPathsArray = favouritesPaths.componentsSeparatedByString(":::")
-            var iMax = favouritesPathsArray.count
-            for var i = 0; i < iMax; i++ {
-                if (favouritesPathsArray[i] == "") {
-                    favouritesPathsArray.removeAtIndex(i)
-                    i--
-                    iMax--
-                } else {
-                    let favouriteItem = createSidebarItemDocFromPath(favouritesPathsArray[i])
-                    favouriteItem.pinType = "favourite"
-                    favouriteItems.items.append(favouriteItem)
-                }
-            }
-        }
+        loadSidebar()
         
         // open DefaultsColumnsRoot
         if let columnsRootPaths = defaults.stringForKey(defaultsKeys.columnsRootPaths) {
@@ -88,7 +73,54 @@ class ViewController: NSViewController {
 //        }
         
     
-        outlineView?.expandItem(nil, expandChildren: true)
+    func loadSidebar() {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        var contents: Array<String> = []
+        var numItems: Int = 0
+        let fs: NSFileManager = NSFileManager.defaultManager()
+        
+        //load Devices
+        do {
+            try contents = fs.contentsOfDirectoryAtPath(volumesPath)
+            numItems = contents.count
+            deviceItems.items.removeAll()
+            
+            for var i = 0; i < numItems; i++ {
+                let deviceItem = createSidebarItemDocFromPath(volumesPath + contents[i])
+                deviceItem.pinType = "device"
+                deviceItems.items.append(deviceItem)
+            }
+            
+        } catch {
+            print("error - possibly no contents")
+        }
+        
+        for var i = numItems-1; i >= 0; i-- {
+            let mobileBackups = "MobileBackups"
+            if deviceItems.items[i].data.fullName == mobileBackups {
+                deviceItems.items.removeAtIndex(i)
+            }
+        }
+        
+        
+        // load DefaultsFavourites
+        if let favouritesPaths = defaults.stringForKey(defaultsKeys.favouritesPaths) {
+            var favouritesPathsArray = favouritesPaths.componentsSeparatedByString(":::")
+            var iMax = favouritesPathsArray.count
+            favouriteItems.items.removeAll()
+
+            for var i = 0; i < iMax; i++ {
+                if (favouritesPathsArray[i] == "") {
+                    favouritesPathsArray.removeAtIndex(i)
+                    i--
+                    iMax--
+                } else {
+                    let favouriteItem = createSidebarItemDocFromPath(favouritesPathsArray[i])
+                    favouriteItem.pinType = "favourite"
+                    favouriteItems.items.append(favouriteItem)
+                }
+            }
+        }
     }
     
     func saveDefaultsFavourites() {
@@ -159,6 +191,7 @@ class ViewController: NSViewController {
             listViews[i].listItems(listViews[i].listPath)
             listViews[i].setTrackingArea()
         }
+        loadSidebar()
         outlineView.reloadData()
     }
     
