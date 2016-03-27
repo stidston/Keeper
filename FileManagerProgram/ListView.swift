@@ -1,10 +1,11 @@
 import Cocoa
 import AppKit
 
-class ListViewController: NSViewController, NSDraggingDestination {
+class ListViewController: NSViewController { //, NSDraggingDestination {
     
     @IBOutlet weak var itemsTitleView: NSTextField!
-    @IBOutlet weak var itemsTableView: MyTableView!
+    @IBOutlet weak var itemsTableView: ItemsTableView!
+    @IBOutlet weak var itemsScrollView: ItemsScrollView!
     @IBOutlet weak var navigationButton: NSButton!
     @IBOutlet weak var favouriteButton: NSButton!
     
@@ -15,12 +16,8 @@ class ListViewController: NSViewController, NSDraggingDestination {
     var listIsRoot: Bool = true
     var favouritesPaths: Array<String> = []
     var viewCreatedDate: NSTimeInterval = NSDate().timeIntervalSince1970
-    let rowType = "RowType"
     var trackingArea: NSTrackingArea = NSTrackingArea()
     
-    // Drag and drop
-    var itemsDataArray:[String] = []
-
     let fs: NSFileManager = NSFileManager.defaultManager()
     let ws: NSWorkspace = NSWorkspace.sharedWorkspace()
     
@@ -29,26 +26,28 @@ class ListViewController: NSViewController, NSDraggingDestination {
         itemsTitleView.stringValue = getFolderNameFromPath(listPath)
         listItems(listPath)
         
+        // Drag and drop
+        let registeredTypes:[String] = [NSStringPboardType, NSFilenamesPboardType]
+        itemsScrollView.registerForDraggedTypes(registeredTypes)
+        itemsScrollView.listViewController = self
+        
         setTrackingArea()
         
-        // Drag and drop
-        view.registerForDraggedTypes([rowType, NSFilenamesPboardType])
+        itemsScrollView.focusRingType = NSFocusRingType.Default
     }
     
     override func mouseEntered(theEvent: NSEvent) {
         super.mouseEntered(theEvent)
         favouriteButton.hidden = false
+//        navigationButton.hidden = false
     }
     
     override func mouseExited(theEvent: NSEvent) {
         super.mouseExited(theEvent)
         favouriteButton.hidden = true
+//        navigationButton.hidden = true
     }
-    
-    func recieveMovedItem(item: ItemDoc, fromViewController: ListViewController) {
-        
-    }
-    
+
     override func loadView() {
         super.loadView()
         view.identifier = String(viewCreatedDate)
@@ -71,7 +70,6 @@ class ListViewController: NSViewController, NSDraggingDestination {
     }
     
     func getFolderNameFromPath(var path: String) -> String {
-//        print("getFolderNameFromPath"+path)
         // Remove trailing slash if it's there
         if (path.substringFromIndex(path.endIndex.advancedBy(-1)) == "/") {
             path = path.substringToIndex(path.endIndex.advancedBy(-1))
@@ -106,7 +104,7 @@ class ListViewController: NSViewController, NSDraggingDestination {
             }
 
         } catch {
-            print("error - possibly no contents")
+            print("listItems error")
         }
         
         //Remove invisible items
@@ -159,8 +157,10 @@ class ListViewController: NSViewController, NSDraggingDestination {
     func updateNavigationButton() {
         if getPathWithTrailingSlash(listPath) == getPathWithTrailingSlash(rootPath) {
             navigationButton.image = NSImage(named: "NSStopProgressTemplate")
+            navigationButton.hidden = true
             listIsRoot = true
         } else {
+            navigationButton.hidden = false
             navigationButton.image = NSImage(named: "NSGoLeftTemplate")
             listIsRoot = false
         }
@@ -180,36 +180,45 @@ class ListViewController: NSViewController, NSDraggingDestination {
     
     func updateFavouritesButton() {
         if favouritesPaths.contains(listPath) {
-            favouriteButton.image = NSImage(named: "heart")
+            favouriteButton.image = NSImage(named: "NSInfo")
         } else {
-            favouriteButton.image = NSImage(named: "heart_outline")
+            favouriteButton.image = NSImage(named: "NSInfo")
         }
     }
     
     func navigateToParent() {
-        // navigateToParent
+
         let currentFolderNameLength = getFolderNameFromPath(listPath).characters.count
         listPath = listPath.substringToIndex(listPath.endIndex.advancedBy(-currentFolderNameLength-1))
         listItems(listPath)
+        
+        var fileType: String = ""
+        do {
+            try fileType = ws.typeOfFile(listPath)
+        } catch {
+            print("navigateToParent error")
+        }
+        print("fileType \(fileType)")
+
         itemsTitleView.stringValue = getFolderNameFromPath(listPath)
+
         itemsTableView.reloadData()
         updateNavigationButton()
     }
+    
 }
 
-// MARK: - NSTableViewDataSource
 extension ListViewController: NSTableViewDataSource {
     func numberOfRowsInTableView(aTableView: NSTableView) -> Int {
         return items.count
     }
     
     func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        // 1
+ 
         let cellView: NSTableCellView = tableView.makeViewWithIdentifier(tableColumn!.identifier, owner: self) as! NSTableCellView
         
-        // 2
         if tableColumn!.identifier == "ItemColumn" {
-            // 3
+            
             let itemDoc = items[row]
             cellView.imageView!.image = itemDoc.icon
             cellView.textField!.stringValue = itemDoc.data.fullName
@@ -218,43 +227,17 @@ extension ListViewController: NSTableViewDataSource {
         
         return cellView
     }
-    
-    // Copy rows to pastboard
-    func tableView(aTableView: NSTableView, writeRowsWithIndexes rowIndexes: NSIndexSet, toPasteboard pboard: NSPasteboard) -> Bool {
-        
-        let data = NSKeyedArchiver.archivedDataWithRootObject([rowIndexes])
-        pboard.declareTypes([rowType], owner:self)
-        pboard.setData(data, forType: rowType)
-        
+
+    //     Copy rows to pasteboard
+    func tableView(aTableView: NSTableView, writeRowsWithIndexes rowIndexes: NSIndexSet, toPasteboard
+        pboard: NSPasteboard) -> Bool {
+        let path = items[rowIndexes.firstIndex].data.path
+        pboard.declareTypes([NSStringPboardType], owner: self)
+        pboard.setString(path, forType: NSStringPboardType)
         return true
     }
-    
-    // Validate the drop
-//    func tableView(aTableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation operation:NSTableViewDropOperation) -> NSDragOperation {
-//        aTableView.setDropRow(row, dropOperation: NSTableViewDropOperation.Above)
-//        return NSDragOperation.Move
-//    }
-    
-    // Handling the drop
-//    func tableView(tableView: NSTableView, acceptDrop info:NSDraggingInfo, row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
-//
-//        let pasteboard = info.draggingPasteboard()
-//        let rowData = pasteboard.dataForType(rowType)
-//        
-//        if(rowData != nil) {
-//            var dataArray = NSKeyedUnarchiver.unarchiveObjectWithData(rowData!) as! Array<NSIndexSet>,
-//            indexSet = dataArray[0]
-//            let movingFromIndex = indexSet.firstIndex
-//            let item = items[movingFromIndex]
-//            recieveMovedItem(item, )
-//            return true
-//        } else {
-//            return false
-//        }
-//    }
 }
 
-// MARK: - NSTableViewDelegate
 extension ListViewController: NSTableViewDelegate {
     func tableViewSelectionDidChange(notification: NSNotification) {
         let selectedDoc = selectedItemDoc()
@@ -264,4 +247,34 @@ extension ListViewController: NSTableViewDelegate {
         }
         
     }
+}
+
+extension ListViewController: ScrollViewDelegate {
+    func moveItemToTable(aViewController: ItemsScrollView, path: String) -> Bool {
+        do {
+            try fs.moveItemAtPath(path, toPath: listPath + getFolderNameFromPath(path))
+        } catch {
+            Swift.print("fs.moveItemAtPath error")
+            return false
+        }
+        listItems(listPath)
+        return true
+    }
+    func copyItemToTable(aViewController: ItemsScrollView, path: String) -> Bool {
+        do {
+            try fs.copyItemAtPath(path, toPath: listPath + getFolderNameFromPath(path))
+        } catch {
+            Swift.print("fs.copyItemToTable error")
+            return false
+        }
+        listItems(listPath)
+        return true
+    }
+}
+
+extension ListViewController: TableViewDelegate {
+//    func removeItemFromTable(aTableView: ItemsTableView, path: String) -> Bool {
+//        Swift.print("removeItemFromTable \(path)")
+//        return true
+//    }
 }
