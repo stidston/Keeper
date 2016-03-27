@@ -56,21 +56,7 @@ class ViewController: NSViewController {
             }
         }
         
-        // navigate to DefaultsColumnsList
-//        if let columnsListPaths = defaults.stringForKey(defaultsKeys.columnsListPaths) {
-//
-//            var columnsListPathsArray = columnsListPaths.componentsSeparatedByString(":::")
-//            var iMax = columnsListPathsArray.count
-//            for var i = 0; i < iMax; i++ {
-//                if (columnsListPathsArray[i] == "") {
-//                    columnsListPathsArray.removeAtIndex(i)
-//                    i--
-//                    iMax--
-//                } else {
-//                    listViews[i].listItems(columnsListPathsArray[i].stringByRemovingPercentEncoding!)
-//                }
-//            }
-//        }
+        outlineView?.expandItem(nil, expandChildren: true)
         
     
     func loadSidebar() {
@@ -155,13 +141,6 @@ class ViewController: NSViewController {
         defaults.setObject("", forKey: defaultsKeys.columnsListPaths)
         defaults.setObject("", forKey: defaultsKeys.favouritesPaths)
     }
-    
-//    func putAway() {
-//        let iMax = numListViews
-//        for var i = 0; i < iMax; i++ {
-//            removeListViewRight()
-//        }
-//    }
     
     func createSidebarItemDocFromPath(path: String) -> SidebarItemDoc {
         let name = getFolderNameFromPath(path)
@@ -269,14 +248,6 @@ class ViewController: NSViewController {
         
         saveDefaultsColumns()
     }
-    
-//    func removeListViewRight() {
-//        if numListViews > 0 {
-//            listViews[numListViews-1].view.removeFromSuperview()
-//            listViews.removeLast()
-//            numListViews--
-//        }
-//    }
     
     func navigateListViewAtIndex(index: Int) {
         if !listViews[index].listIsRoot {
