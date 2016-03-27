@@ -62,6 +62,8 @@ class ViewController: NSViewController {
         
         outlineView?.expandItem(nil, expandChildren: true)
         
+        let _ = NSTimer.scheduledTimerWithTimeInterval(1, target:self, selector: Selector("refresh"), userInfo: nil, repeats: true)
+    }
     
     func loadSidebar() {
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -219,6 +221,7 @@ class ViewController: NSViewController {
     }
     
     func addListViewRight(listPath: String) {
+        print("addListViewRight \(numListViews)")
         let listView = ListViewController(nibName: "ListView", bundle: nil)
         listView!.listPath = listPath
         listView!.rootPath = listPath
