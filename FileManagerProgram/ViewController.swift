@@ -145,7 +145,16 @@ class ViewController: NSViewController {
     func createSidebarItemDocFromPath(path: String) -> SidebarItemDoc {
         let name = getFolderNameFromPath(path)
         let path = getPathWithTrailingSlash(path)
-        return SidebarItemDoc(fullName: name, icon: ws.iconForFile(path), path: path)
+        var image: NSImage
+        switch name {
+            case "Downloads": image = NSImage(named: "downloads")!
+            case "Documents": image = NSImage(named: "documents")!
+            case "Desktop": image = NSImage(named:"desktop")!
+            case "Internal HD": image = NSImage(named:"internal_disk")!
+            case userName: image = NSImage(named:"home")!
+            default: image = NSImage(named: "folder")!
+        }
+        return SidebarItemDoc(fullName: name, icon: image, path: path)
     }
     
     func getFolderNameFromPath(var path: String) -> String {
