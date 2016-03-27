@@ -23,13 +23,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         viewController.view.topAnchor.constraintEqualToAnchor(viewController.view.superview!.topAnchor).active = true
         viewController.view.bottomAnchor.constraintEqualToAnchor(viewController.view.superview!.bottomAnchor).active = true
         viewController.view.trailingAnchor.constraintEqualToAnchor(viewController.view.superview!.trailingAnchor).active = true
-        
-        let _ = NSTimer.scheduledTimerWithTimeInterval(1, target:self, selector: Selector("refresh"), userInfo: nil, repeats: true)
-
-    }
-    
-    func refresh() {
-        viewController.refresh()
     }
     
     func applicationShouldHandleReopen(theApplication: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
