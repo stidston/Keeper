@@ -181,12 +181,10 @@ class ViewController: NSViewController {
     func openListView(listPath: String) {
         addListViewRight(listPath)
         
-//        update the new listView favourites paths with ViewController's favouriteItems paths
-        let jMax = favouriteItems.items.count
-        for var j = 0; j < jMax; j++ {
-            listViews[numListViews-1].favouritesPaths.append(getPathWithTrailingSlash(favouriteItems.items[j].data.path))
-        }
-        listViews[numListViews-1].updateFavouritesButton()
+        listViews.last!.updateFavouritesButton()
+        
+        // Horizontal Scrolling: Assign scrollView delegate
+        listViews.last!.itemsTableView.mainScrollView = scrollView
         
     }
     
