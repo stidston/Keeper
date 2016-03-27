@@ -17,6 +17,9 @@ class ViewController: NSViewController {
 
     let ws: NSWorkspace = NSWorkspace.sharedWorkspace()
 
+    let userName = NSUserName()
+    var defaultPath = "/Users/"
+    let volumesPath = "/Volumes/"
     
     var favouriteItems = SourceType (name:"Favourites")
     var deviceItems = SourceType (name:"Devices")
@@ -30,7 +33,8 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        defaultPath += userName
+       
         let defaults = NSUserDefaults.standardUserDefaults()
         
         loadSidebar()
