@@ -17,11 +17,11 @@ class ViewController: NSViewController {
 
     let ws: NSWorkspace = NSWorkspace.sharedWorkspace()
 
-    var defaultPath = "/Users/fred/"
     
     var favouriteItems = SourceType (name:"Favourites")
+    var deviceItems = SourceType (name:"Devices")
     var columnItems = SourceType (name:"Columns")
-    var deviceItems = SourceType (name:"")
+    var recentItems = SourceType (name:"Recent")
     
     var listViews = [ListViewController]()
     var numListViews: Int = 0
@@ -367,8 +367,10 @@ extension ViewController {
             switch index {
             case 0:
                 return favouriteItems
-            default:
+            case 1:
                 return deviceItems
+            default:
+                return recentItems
             }
         }
     }
