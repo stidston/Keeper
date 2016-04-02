@@ -163,19 +163,6 @@ class ViewController: NSViewController {
         return SidebarItemDoc(fullName: name, icon: image, path: path)
     }
     
-    func getFolderNameFromPath(var path: String) -> String {
-        // Remove trailing slash if it's there
-        if (path.substringFromIndex(path.endIndex.advancedBy(-1)) == "/") {
-            path = path.substringToIndex(path.endIndex.advancedBy(-1))
-        }
-        // Remove path up to the preceding slash
-        var i = 0
-        while path.substringFromIndex(path.startIndex.advancedBy(i)).containsString("/") {
-            i++
-        }
-        return path.substringFromIndex(path.startIndex.advancedBy(i))
-    }
-    
     func showListView() {
         let _ = NSTimer.scheduledTimerWithTimeInterval(1.0, target:self, selector: Selector("scrollToRight"), userInfo: nil, repeats: false)
     }

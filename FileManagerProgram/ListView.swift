@@ -68,19 +68,6 @@ class ListViewController: NSViewController { //, NSDraggingDestination {
         trackingArea = NSTrackingArea(rect: CGRect(x: 0,y: view.bounds.height-30,width: 230,height: 30), options: [NSTrackingAreaOptions.MouseEnteredAndExited, NSTrackingAreaOptions.ActiveAlways], owner: self, userInfo: nil)
         view.addTrackingArea(trackingArea)
     }
-    
-    func getFolderNameFromPath(var path: String) -> String {
-        // Remove trailing slash if it's there
-        if (path.substringFromIndex(path.endIndex.advancedBy(-1)) == "/") {
-            path = path.substringToIndex(path.endIndex.advancedBy(-1))
-        }
-        // Remove path up to the preceding slash
-        var i = 0
-        while path.substringFromIndex(path.startIndex.advancedBy(i)).containsString("/") {
-            i++
-        }
-        return path.substringFromIndex(path.startIndex.advancedBy(i))
-    }
         
     func listItems(path: String?) {
         if !refreshStopped {

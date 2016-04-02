@@ -59,7 +59,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 let fullPath = myOpen.URLs[0].absoluteString
                 let index = fullPath.startIndex.advancedBy(7)
                 let path = fullPath.substringFromIndex(index)
-                let name = self.viewController.getFolderNameFromPath(path)
+                let name = getFolderNameFromPath(path)
                 let icon = self.viewController.ws.iconForFile(path)
                 let item = SidebarItemDoc(fullName: name, icon: icon, path: path)
                 

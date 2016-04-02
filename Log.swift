@@ -16,6 +16,19 @@ func getPathWithTrailingSlash(path: String) -> String {
     }
 }
 
+func getFolderNameFromPath(var path: String) -> String {
+    // Remove trailing slash if it's there
+    if (path.substringFromIndex(path.endIndex.advancedBy(-1)) == "/") {
+        path = path.substringToIndex(path.endIndex.advancedBy(-1))
+    }
+    // Remove path up to the preceding slash
+    var i = 0
+    while path.substringFromIndex(path.startIndex.advancedBy(i)).containsString("/") {
+        i++
+    }
+    return path.substringFromIndex(path.startIndex.advancedBy(i))
+}
+
 var logFileInteractions = [String: LogFileItem]()
 
 func updateLog(var ID: String, type: CountType) {
@@ -31,9 +44,9 @@ func updateLog(var ID: String, type: CountType) {
         case CountType.Trash: Swift.print("\(ID) open \(++logFileInteractions[ID]!.trash)")
         case CountType.Rename: Swift.print("\(ID) open \(++logFileInteractions[ID]!.rename)")
         case CountType.Popover: Swift.print("\(ID) popover \(++logFileInteractions[ID]!.popover)")
-        case CountType.Add: Swift.print("\(ID) sort \(++logFileInteractions[ID]!.add)")
-        case CountType.Remove: Swift.print("\(ID) sort \(++logFileInteractions[ID]!.remove)")
-        case CountType.Drag: Swift.print("\(ID) sort \(++logFileInteractions[ID]!.drag)")
+        case CountType.Add: Swift.print("\(ID) add \(++logFileInteractions[ID]!.add)")
+        case CountType.Remove: Swift.print("\(ID) remove \(++logFileInteractions[ID]!.remove)")
+        case CountType.Drag: Swift.print("\(ID) drag \(++logFileInteractions[ID]!.drag)")
     }
 }
 
