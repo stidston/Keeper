@@ -17,6 +17,8 @@ class ListViewController: NSViewController { //, NSDraggingDestination {
     var favouritesPaths: Array<String> = []
     var viewCreatedDate: NSTimeInterval = NSDate().timeIntervalSince1970
     var trackingArea: NSTrackingArea = NSTrackingArea()
+    var popover: NSPopover = NSPopover()
+    var sortType: String = "Date modified"
     
     let fs: NSFileManager = NSFileManager.defaultManager()
     let ws: NSWorkspace = NSWorkspace.sharedWorkspace()
@@ -31,6 +33,8 @@ class ListViewController: NSViewController { //, NSDraggingDestination {
         itemsScrollView.registerForDraggedTypes(registeredTypes)
         itemsScrollView.listViewController = self
         
+        popover.contentViewController = PopoverViewController(nibName: "PopoverViewController", bundle: nil)
+        popover.contentViewController!.view.identifier = String(viewCreatedDate)
         setTrackingArea()
         
         itemsScrollView.focusRingType = NSFocusRingType.Default
@@ -44,7 +48,9 @@ class ListViewController: NSViewController { //, NSDraggingDestination {
     
     override func mouseExited(theEvent: NSEvent) {
         super.mouseExited(theEvent)
-        favouriteButton.hidden = true
+        if !popover.shown {
+            favouriteButton.hidden = true
+        }
 //        navigationButton.hidden = true
     }
 
@@ -178,12 +184,25 @@ class ListViewController: NSViewController { //, NSDraggingDestination {
         }
     }
     
-    func updateFavouritesButton() {
-        if favouritesPaths.contains(listPath) {
-            favouriteButton.image = NSImage(named: "NSInfo")
+    func showPopover(sender: AnyObject?) {
+        updateLog(listPath, type: CountType.Popover)
+        popover.showRelativeToRect(favouriteButton.bounds, ofView: favouriteButton, preferredEdge: NSRectEdge.MaxY)
+    }
+    
+    @IBAction func togglePopover(sender: NSButton) {
+        if popover.shown {
+            hidePopover(sender)
         } else {
-            favouriteButton.image = NSImage(named: "NSInfo")
+            showPopover(sender)
         }
+    }
+    
+    func hidePopover(sender: AnyObject?) {
+        popover.performClose(sender)
+    }
+    
+    func updateFavouritesButton() {
+        favouriteButton.action = Selector("togglePopover:")
     }
     
     func navigateToParent() {

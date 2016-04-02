@@ -81,6 +81,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
+    @IBAction func sortListView(sender: NSButton) {
+        if let listIndex = viewController.getListViewIndexByIdentifier(sender.superview!.identifier!) {
+            viewController.sortListViewAtIndex(sender, index: listIndex)
+        }
+    }
     @IBAction func reset(sender: NSToolbarItem) {
         viewController.resetToFavourites()
 
