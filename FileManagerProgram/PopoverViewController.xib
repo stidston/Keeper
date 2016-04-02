@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8191" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PopoverViewController" customModule="FileManagerProgram" customModuleProvider="target">
+            <connections>
+                <outlet property="sortMenu" destination="i4h-eD-ufR" id="rzG-CN-z9X"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+                <outlet property="viewView" destination="Hz6-mo-xeY" id="dbV-xG-QVh"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView identifier="Gerry" wantsLayer="YES" id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="222" height="127"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i4h-eD-ufR">
+                    <rect key="frame" x="18" y="50" width="187" height="26"/>
+                    <animations/>
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="jCW-DZ-ES6">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="ea8-Dj-MVy">
+                            <items>
+                                <menuItem title="Date modified" id="Ngz-sO-nwz"/>
+                                <menuItem title="Date created" id="8zM-vU-VDr"/>
+                                <menuItem title="Alphabetical" id="awu-51-qBx"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="sortListView:" target="-1" id="pi1-Ck-Ebu"/>
+                    </connections>
+                </popUpButton>
+                <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YTi-IV-84t">
+                    <rect key="frame" x="18" y="18" width="186" height="24"/>
+                    <animations/>
+                    <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="UcO-NE-ZLq">
+                        <font key="font" metaFont="system"/>
+                        <segments>
+                            <segment image="NSLeftFacingTriangleTemplate" width="90">
+                                <nil key="label"/>
+                            </segment>
+                            <segment image="NSRightFacingTriangleTemplate" width="89" tag="1">
+                                <nil key="label"/>
+                            </segment>
+                        </segments>
+                    </segmentedCell>
+                </segmentedControl>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ocP-eB-QhJ" userLabel="Remove column">
+                    <rect key="frame" x="14" y="79" width="194" height="32"/>
+                    <animations/>
+                    <buttonCell key="cell" type="push" title="Remove column" bezelStyle="rounded" alignment="left" borderStyle="border" inset="2" id="Xvo-zj-zVD">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="closeListView:" target="-1" id="fDS-zv-a9Z"/>
+                    </connections>
+                </button>
+            </subviews>
+            <animations/>
+            <point key="canvasLocation" x="241" y="133.5"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="NSLeftFacingTriangleTemplate" width="9" height="12"/>
+        <image name="NSRightFacingTriangleTemplate" width="9" height="12"/>
+    </resources>
+</document>

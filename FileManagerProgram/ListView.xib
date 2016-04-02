@@ -145,7 +145,7 @@
                         <font key="font" metaFont="systemBold" size="12"/>
                     </buttonCell>
                     <connections>
-                        <action selector="favouriteListView:" target="-1" id="0OZ-jC-W6s"/>
+                        <action selector="togglePopover:" target="-2" id="Gma-cZ-WJ5"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uk5-Kk-Dvz">
