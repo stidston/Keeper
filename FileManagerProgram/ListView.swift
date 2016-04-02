@@ -11,7 +11,8 @@ class ListViewController: NSViewController { //, NSDraggingDestination {
     
     var items = [ItemDoc]()
     var numItems: Int = 0
-    var rootPath: String = "/Users/fred/"
+    let userName = NSUserName()
+    var rootPath: String = "/Users/"
     var listPath: String = ""
     var listIsRoot: Bool = true
     var favouritesPaths: Array<String> = []
@@ -19,13 +20,17 @@ class ListViewController: NSViewController { //, NSDraggingDestination {
     var trackingArea: NSTrackingArea = NSTrackingArea()
     var popover: NSPopover = NSPopover()
     var sortType: String = "Date modified"
+    var refreshStopped:Bool = false
     
     let fs: NSFileManager = NSFileManager.defaultManager()
     let ws: NSWorkspace = NSWorkspace.sharedWorkspace()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        rootPath = "/Users/" + userName
+
         itemsTitleView.stringValue = getFolderNameFromPath(listPath)
+
         listItems(listPath)
         
         // Drag and drop
@@ -33,11 +38,11 @@ class ListViewController: NSViewController { //, NSDraggingDestination {
         itemsScrollView.registerForDraggedTypes(registeredTypes)
         itemsScrollView.listViewController = self
         
+        view.identifier = String(viewCreatedDate)
         popover.contentViewController = PopoverViewController(nibName: "PopoverViewController", bundle: nil)
         popover.contentViewController!.view.identifier = String(viewCreatedDate)
+
         setTrackingArea()
-        
-        itemsScrollView.focusRingType = NSFocusRingType.Default
     }
     
     override func mouseEntered(theEvent: NSEvent) {
@@ -56,7 +61,6 @@ class ListViewController: NSViewController { //, NSDraggingDestination {
 
     override func loadView() {
         super.loadView()
-        view.identifier = String(viewCreatedDate)
     }
     
     func setTrackingArea() {
@@ -89,58 +93,36 @@ class ListViewController: NSViewController { //, NSDraggingDestination {
     }
         
     func listItems(path: String?) {
-        if path != nil {
-            listPath = getPathWithTrailingSlash(path!)
-        }
-        items.removeAll()
-        
-        itemsTitleView.stringValue = getFolderNameFromPath(listPath)
-        
-        var contents: Array<String>
-        
-        //Load contents
-        do {
-            contents = try fs.contentsOfDirectoryAtPath(listPath)
-            numItems = contents.count
-
-            for var i = 0; i < numItems; i++ {
-                var itemPath = listPath
-                itemPath += contents[i]
-                items.append(ItemDoc(fullName: contents[i], icon: ws.iconForFile(itemPath), path: itemPath))
+        if !refreshStopped {
+            if path != nil {
+                listPath = getPathWithTrailingSlash(path!)
             }
-
-        } catch {
-            print("listItems error")
-        }
-        
-        //Remove invisible items
-        for var i = numItems-1; i >= 0; i-- {
-            let fullName: String = items[i].data.fullName
-            if fullName.substringToIndex(fullName.startIndex.advancedBy(1)) == "." {
-                items.removeAtIndex(i)
-            }
-        }
-        
-        //Sort by date modified descending
-        switch itemsTitleView.stringValue {
-            case "Downloads":
-                numItems = items.count
+            items.removeAll()
+            
+            itemsTitleView.stringValue = getFolderNameFromPath(listPath)
+            
+            var contents: Array<String>
+            
+            //Load contents
+            do {
+                contents = try fs.contentsOfDirectoryAtPath(listPath)
+                numItems = contents.count
+                
                 for var i = 0; i < numItems; i++ {
-                    let itemPath = listPath + items[i].data.fullName
-                    do {
-                        let creDate = try fs.attributesOfItemAtPath(itemPath) ["NSFileCreationDate"]
-                        items[i].setDate(creDate as? NSDate)
-                    } catch { print("handled") }
+                    var itemPath = listPath
+                    itemPath += contents[i]
+                    items.append(ItemDoc(fullName: contents[i], icon: ws.iconForFile(itemPath), path: itemPath))
                 }
-                items = items.sort({ $0.creDate!.compare($1.creDate!) == .OrderedDescending })
-            default:
-                numItems = items.count
-                for var i = 0; i < numItems; i++ {
-                    let itemPath = listPath + items[i].data.fullName
-                    do {
-                        let modDate = try fs.attributesOfItemAtPath(itemPath) ["NSFileModificationDate"]
-                        items[i].setDate(modDate as? NSDate)
-                    } catch { print("handled") }
+                
+            } catch {
+                print("listItems error")
+            }
+            
+            //Remove invisible items
+            for var i = numItems-1; i >= 0; i-- {
+                let fullName: String = items[i].data.fullName
+                if fullName.substringToIndex(fullName.startIndex.advancedBy(1)) == "." {
+                    items.removeAtIndex(i)
                 }
             }
             
@@ -200,6 +182,8 @@ class ListViewController: NSViewController { //, NSDraggingDestination {
     }
 
     func openItem(doc: ItemDoc?) {
+        updateLog(doc!.data.path, type: CountType.Open)
+    
         var fileType: String = ""
         do { try fileType = ws.typeOfFile(listPath + doc!.data.fullName)
         } catch { print("error") }
@@ -237,19 +221,69 @@ class ListViewController: NSViewController { //, NSDraggingDestination {
         let currentFolderNameLength = getFolderNameFromPath(listPath).characters.count
         listPath = listPath.substringToIndex(listPath.endIndex.advancedBy(-currentFolderNameLength-1))
         listItems(listPath)
+        itemsTitleView.stringValue = getFolderNameFromPath(listPath)
+        itemsTableView.reloadData()
+        updateNavigationButton()
+    }
+    
+    @IBAction func moveItemToTrash(sender: NSMenuItem) {
+        let targetIndex = itemsTableView.clickedRow
+        let fullName = items[targetIndex].data.fullName
+        let path = items[targetIndex].data.path
+        let trashPath = rootPath + "/.Trash/" + fullName
         
-        var fileType: String = ""
+        print("moveItemToTrash \(path) to \(trashPath)")
+        
         do {
-            try fileType = ws.typeOfFile(listPath)
+            updateLog(path, type: CountType.Trash)
+            try fs.moveItemAtPath(path, toPath: trashPath)
         } catch {
             print("navigateToParent error")
         }
-        print("fileType \(fileType)")
+        listItems(listPath)
+    }
+    
+    @IBAction func rename(sender: NSMenuItem) {
+        let targetIndex = itemsTableView.clickedRow
+        updateLog(items[targetIndex].data.path, type: CountType.Rename)
+        
+        let rowView = itemsTableView.rowViewAtRow(targetIndex, makeIfNecessary: false)
+        let itemTitleView = rowView?.subviews[0].subviews[1] as! ItemTextField
+        let itemEditField = rowView?.subviews[0].subviews[2] as! ItemTextField
+        
+        itemTitleView.hidden = true
+        itemEditField.hidden = false
+        itemEditField.stringValue = items[targetIndex].data.fullName
+        itemEditField.selectText(self)
+        
+        itemEditField.parentListViewController = self
+        itemEditField.targetIndex = targetIndex
+    }
+    
+    func endRename(targetIndex: Int) {
+        let rowView = itemsTableView.rowViewAtRow(targetIndex, makeIfNecessary: false)
+        let itemTitleView = rowView?.subviews[0].subviews[1] as! ItemTextField
+        let itemEditField = rowView?.subviews[0].subviews[2] as! ItemTextField
+        
+        do {
+            try fs.moveItemAtPath(listPath+items[targetIndex].data.fullName, toPath: listPath+itemEditField.stringValue)
+        } catch {
+           Swift.print("endRename error")
+        }
+        
+        itemTitleView.hidden = false
+        itemEditField.hidden = true
+        items[targetIndex].data.fullName = itemEditField.stringValue
+        itemTitleView.stringValue = itemEditField.stringValue
 
-        itemsTitleView.stringValue = getFolderNameFromPath(listPath)
-
-        itemsTableView.reloadData()
-        updateNavigationButton()
+        listItems(listPath)
+    }
+    
+    @IBAction func showInFinder(sender:NSMenuItem) {
+        let targetIndex = itemsTableView.clickedRow
+        let pathToOpen = listPath+items[targetIndex].data.fullName
+        
+        ws.selectFile(pathToOpen, inFileViewerRootedAtPath: listPath)
     }
     
 }
