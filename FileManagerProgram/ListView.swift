@@ -142,12 +142,39 @@ class ListViewController: NSViewController { //, NSDraggingDestination {
                         items[i].setDate(modDate as? NSDate)
                     } catch { print("handled") }
                 }
-                items = items.sort({ $0.modDate!.compare($1.modDate!) == .OrderedDescending })
+            }
+            
+            sortList()
+            
+            updateNavigationButton()
+            updateFavouritesButton()
+        } else {
+            Swift.print("refreshStopped")
         }
-
+    }
+    
+    func sortList() {
+        var sortAttribute: String = ""
         
-        updateNavigationButton()
-        updateFavouritesButton()
+        switch sortType {
+            case "Date created": sortAttribute = "NSFileCreationDate"
+            case "Date modified": sortAttribute = "NSFileModificationDate"
+            default: break
+        }
+        
+        if sortAttribute == "NSFileCreationDate" || sortAttribute == "NSFileModificationDate" {
+            numItems = items.count
+            for var i = 0; i < numItems; i++ {
+                let itemPath = listPath + items[i].data.fullName
+                do {
+                    let date = try fs.attributesOfItemAtPath(itemPath) [sortAttribute]
+                    items[i].setDate(date as? NSDate)
+                } catch { print("handled") }
+            }
+            items = items.sort({ $0.oneDate!.compare($1.oneDate!) == .OrderedDescending })
+        } else if sortType == "Alphabetical" {
+            items = items.sort({ $0.data.fullName < $1.data.fullName })
+        }
         
         itemsTableView.reloadData()
     }

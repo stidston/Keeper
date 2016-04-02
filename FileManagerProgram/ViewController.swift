@@ -271,6 +271,11 @@ class ViewController: NSViewController {
         }
     }
     
+    func sortListViewAtIndex(sender: AnyObject?, index: Int) {
+        listViews[index].sortType = sender!.titleOfSelectedItem!!
+        listViews[index].sortList()
+    }
+    
     func removeListViewAtIndex(index: Int) {
         //update listViews array
         if numListViews > 0 {
