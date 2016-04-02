@@ -18,9 +18,26 @@
 		B645DB6E1CA469A900B97B0B /* TableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B645DB6D1CA469A900B97B0B /* TableViewDelegate.swift */; settings = {ASSET_TAGS = (); }; };
 		B645DB701CA469DF00B97B0B /* ScrollViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B645DB6F1CA469DF00B97B0B /* ScrollViewDelegate.swift */; settings = {ASSET_TAGS = (); }; };
 		B645DB721CA46AD100B97B0B /* ItemsScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B645DB711CA46AD100B97B0B /* ItemsScrollView.swift */; settings = {ASSET_TAGS = (); }; };
-		B6C4B2DB1CA83AE300CF2249 /* SidebarTableRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C4B2DA1CA83AE300CF2249 /* SidebarTableRow.swift */; settings = {ASSET_TAGS = (); }; };
+		B68CD6801CAC472C0078EAEE /* ItemTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68CD67F1CAC472C0078EAEE /* ItemTextField.swift */; settings = {ASSET_TAGS = (); }; };
+		B6A86CDD1CAFAB980041B150 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A86CDC1CAFAB980041B150 /* Log.swift */; settings = {ASSET_TAGS = (); }; };
+		B6EB813A1CAADA1F0073D3E5 /* ItemsTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EB81391CAADA1F0073D3E5 /* ItemsTableRowView.swift */; settings = {ASSET_TAGS = (); }; };
+		B6F2A55B1CA9943600257756 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F2A5591CA9943600257756 /* PopoverViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		B6F2A55C1CA9943600257756 /* PopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F2A55A1CA9943600257756 /* PopoverViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		B6FF07461C99D2EF0005A688 /* ItemsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FF07451C99D2EF0005A688 /* ItemsTableView.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B6BCDA9D1CADAB9B006DB164 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B6084B251C85B479005093F2 /* FileManagerProgram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FileManagerProgram.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -36,7 +53,11 @@
 		B645DB6D1CA469A900B97B0B /* TableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDelegate.swift; sourceTree = "<group>"; };
 		B645DB6F1CA469DF00B97B0B /* ScrollViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewDelegate.swift; sourceTree = "<group>"; };
 		B645DB711CA46AD100B97B0B /* ItemsScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsScrollView.swift; sourceTree = "<group>"; };
-		B6C4B2DA1CA83AE300CF2249 /* SidebarTableRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarTableRow.swift; sourceTree = "<group>"; };
+		B68CD67F1CAC472C0078EAEE /* ItemTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTextField.swift; sourceTree = "<group>"; };
+		B6A86CDC1CAFAB980041B150 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Log.swift; path = ../Log.swift; sourceTree = "<group>"; };
+		B6EB81391CAADA1F0073D3E5 /* ItemsTableRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsTableRowView.swift; sourceTree = "<group>"; };
+		B6F2A5591CA9943600257756 /* PopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
+		B6F2A55A1CA9943600257756 /* PopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopoverViewController.xib; sourceTree = "<group>"; };
 		B6FF07451C99D2EF0005A688 /* ItemsTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsTableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,18 +91,22 @@
 		B6084B271C85B479005093F2 /* FileManagerProgram */ = {
 			isa = PBXGroup;
 			children = (
+				B6A86CDC1CAFAB980041B150 /* Log.swift */,
 				B6084B281C85B479005093F2 /* AppDelegate.swift */,
 				B6084B541C85D40F005093F2 /* ViewController.swift */,
 				B6429FA71C85EF2400558CDF /* ListView.swift */,
+				B68CD67F1CAC472C0078EAEE /* ItemTextField.swift */,
+				B6F2A5591CA9943600257756 /* PopoverViewController.swift */,
 				B6FF07451C99D2EF0005A688 /* ItemsTableView.swift */,
 				B645DB711CA46AD100B97B0B /* ItemsScrollView.swift */,
-				B6C4B2DA1CA83AE300CF2249 /* SidebarTableRow.swift */,
+				B6EB81391CAADA1F0073D3E5 /* ItemsTableRowView.swift */,
 				B645DB6D1CA469A900B97B0B /* TableViewDelegate.swift */,
 				B645DB6F1CA469DF00B97B0B /* ScrollViewDelegate.swift */,
 				B6084B361C85B59C005093F2 /* Model.swift */,
 				B6084B2A1C85B479005093F2 /* Assets.xcassets */,
 				B6084B2C1C85B479005093F2 /* MainMenu.xib */,
 				B6084B551C85D40F005093F2 /* ViewController.xib */,
+				B6F2A55A1CA9943600257756 /* PopoverViewController.xib */,
 				B6429FA81C85EF2400558CDF /* ListView.xib */,
 				B6084B2F1C85B479005093F2 /* Info.plist */,
 			);
@@ -98,6 +123,7 @@
 				B6084B211C85B479005093F2 /* Sources */,
 				B6084B221C85B479005093F2 /* Frameworks */,
 				B6084B231C85B479005093F2 /* Resources */,
+				B6BCDA9D1CADAB9B006DB164 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -149,6 +175,7 @@
 				B6084B2B1C85B479005093F2 /* Assets.xcassets in Resources */,
 				B6084B571C85D40F005093F2 /* ViewController.xib in Resources */,
 				B6084B2E1C85B479005093F2 /* MainMenu.xib in Resources */,
+				B6F2A55C1CA9943600257756 /* PopoverViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,14 +187,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				B645DB701CA469DF00B97B0B /* ScrollViewDelegate.swift in Sources */,
-				B6C4B2DB1CA83AE300CF2249 /* SidebarTableRow.swift in Sources */,
 				B645DB6E1CA469A900B97B0B /* TableViewDelegate.swift in Sources */,
+				B6A86CDD1CAFAB980041B150 /* Log.swift in Sources */,
 				B6429FA91C85EF2400558CDF /* ListView.swift in Sources */,
 				B6FF07461C99D2EF0005A688 /* ItemsTableView.swift in Sources */,
 				B645DB721CA46AD100B97B0B /* ItemsScrollView.swift in Sources */,
 				B6084B381C85B59C005093F2 /* Model.swift in Sources */,
+				B68CD6801CAC472C0078EAEE /* ItemTextField.swift in Sources */,
 				B6084B291C85B479005093F2 /* AppDelegate.swift in Sources */,
+				B6F2A55B1CA9943600257756 /* PopoverViewController.swift in Sources */,
 				B6084B561C85D40F005093F2 /* ViewController.swift in Sources */,
+				B6EB813A1CAADA1F0073D3E5 /* ItemsTableRowView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +300,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/FileManagerProgram/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = stidstondesign.FileManagerProgram;
@@ -282,6 +313,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/FileManagerProgram/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = stidstondesign.FileManagerProgram;
