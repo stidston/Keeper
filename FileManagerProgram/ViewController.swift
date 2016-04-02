@@ -194,6 +194,7 @@ class ViewController: NSViewController {
     }
     
     func openListView(listPath: String) {
+        updateLog(getPathWithTrailingSlash(listPath), type: CountType.Add)
         addListViewRight(listPath)
         
         listViews.last!.updateFavouritesButton()
@@ -277,7 +278,8 @@ class ViewController: NSViewController {
     }
     
     func removeListViewAtIndex(index: Int) {
-        //update listViews array
+        updateLog(listViews[index].listPath, type: CountType.Remove)
+
         if numListViews > 0 {
             listViews[index].view.removeFromSuperview()
             listViews.removeAtIndex(index)

@@ -69,16 +69,6 @@ class ListViewController: NSViewController { //, NSDraggingDestination {
         view.addTrackingArea(trackingArea)
     }
     
-    func getPathWithTrailingSlash(path: String) -> String {
-
-        if (path.substringFromIndex(path.endIndex.advancedBy(-1)) != "/") {
-            return path + "/"
-        } else {
-            return path
-        }
-
-    }
-    
     func getFolderNameFromPath(var path: String) -> String {
         // Remove trailing slash if it's there
         if (path.substringFromIndex(path.endIndex.advancedBy(-1)) == "/") {
@@ -186,7 +176,7 @@ class ListViewController: NSViewController { //, NSDraggingDestination {
     
         var fileType: String = ""
         do { try fileType = ws.typeOfFile(listPath + doc!.data.fullName)
-        } catch { print("error") }
+        } catch { print("workspace error") }
         
         if fileType != "public.folder" {
             ws.openFile(listPath + doc!.data.fullName)
@@ -220,6 +210,8 @@ class ListViewController: NSViewController { //, NSDraggingDestination {
 
         let currentFolderNameLength = getFolderNameFromPath(listPath).characters.count
         listPath = listPath.substringToIndex(listPath.endIndex.advancedBy(-currentFolderNameLength-1))
+        updateLog(listPath, type: CountType.Close)
+        
         listItems(listPath)
         itemsTitleView.stringValue = getFolderNameFromPath(listPath)
         itemsTableView.reloadData()
@@ -238,7 +230,7 @@ class ListViewController: NSViewController { //, NSDraggingDestination {
             updateLog(path, type: CountType.Trash)
             try fs.moveItemAtPath(path, toPath: trashPath)
         } catch {
-            print("navigateToParent error")
+            Swift.print("moveItemToTrash error")
         }
         listItems(listPath)
     }
@@ -312,6 +304,7 @@ extension ListViewController: NSTableViewDataSource {
     func tableView(aTableView: NSTableView, writeRowsWithIndexes rowIndexes: NSIndexSet, toPasteboard
         pboard: NSPasteboard) -> Bool {
         let path = items[rowIndexes.firstIndex].data.path
+        updateLog(path, type: CountType.Drag)
         pboard.declareTypes([NSStringPboardType], owner: self)
         pboard.setString(path, forType: NSStringPboardType)
         return true
