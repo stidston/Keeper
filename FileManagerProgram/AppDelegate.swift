@@ -13,8 +13,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
     var viewController: ViewController!
-
+    
     func applicationDidFinishLaunching(aNotification: NSNotification) {
+        
         viewController = ViewController(nibName: "ViewController", bundle: nil)
         viewController.view.translatesAutoresizingMaskIntoConstraints = false
         window.contentView!.addSubview(viewController.view)
@@ -41,6 +42,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(aNotification: NSNotification) {
         viewController.saveDefaultsColumns()
+        for i in logFileInteractions {
+            Swift.print(i)
+        }
     }
     
     @IBAction func addColumn(sender: NSToolbarItem) {
@@ -49,7 +53,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         myOpen.canChooseFiles = false
         myOpen.canChooseDirectories = true
         myOpen.allowsMultipleSelection = false
-        
+                
         myOpen.beginSheetModalForWindow(window, completionHandler: { (result) -> Void in
             if result == NSFileHandlingPanelOKButton {
                 let fullPath = myOpen.URLs[0].absoluteString
@@ -81,11 +85,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
+    @IBAction func closeListView(sender: NSButton) {
+        if let listIndex = viewController.getListViewIndexByIdentifier(sender.superview!.identifier!) {
+            viewController.removeListViewAtIndex(listIndex)
+        }
+    }
+    
     @IBAction func sortListView(sender: NSButton) {
         if let listIndex = viewController.getListViewIndexByIdentifier(sender.superview!.identifier!) {
             viewController.sortListViewAtIndex(sender, index: listIndex)
         }
     }
+    
     @IBAction func reset(sender: NSToolbarItem) {
         viewController.resetToFavourites()
 

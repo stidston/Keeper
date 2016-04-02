@@ -180,6 +180,7 @@ class ListViewController: NSViewController { //, NSDraggingDestination {
         
         if fileType != "public.folder" {
             ws.openFile(listPath + doc!.data.fullName)
+           /// get info
         } else {
             listItems(listPath + doc!.data.fullName)
         }
@@ -207,7 +208,6 @@ class ListViewController: NSViewController { //, NSDraggingDestination {
     }
     
     func navigateToParent() {
-
         let currentFolderNameLength = getFolderNameFromPath(listPath).characters.count
         listPath = listPath.substringToIndex(listPath.endIndex.advancedBy(-currentFolderNameLength-1))
         updateLog(listPath, type: CountType.Close)
@@ -318,7 +318,6 @@ extension ListViewController: NSTableViewDelegate {
         if selectedDoc != nil {
             openItem(selectedDoc)
         }
-        
     }
 }
 
@@ -346,8 +345,5 @@ extension ListViewController: ScrollViewDelegate {
 }
 
 extension ListViewController: TableViewDelegate {
-//    func removeItemFromTable(aTableView: ItemsTableView, path: String) -> Bool {
-//        Swift.print("removeItemFromTable \(path)")
-//        return true
-//    }
+
 }

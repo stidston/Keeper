@@ -177,7 +177,7 @@ class ViewController: NSViewController {
     }
     
     func showListView() {
-        let _ = NSTimer.scheduledTimerWithTimeInterval(0.1, target:self, selector: Selector("scrollToRight"), userInfo: nil, repeats: false)
+        let _ = NSTimer.scheduledTimerWithTimeInterval(1.0, target:self, selector: Selector("scrollToRight"), userInfo: nil, repeats: false)
     }
     
     func refresh() {
@@ -196,20 +196,10 @@ class ViewController: NSViewController {
     func openListView(listPath: String) {
         updateLog(getPathWithTrailingSlash(listPath), type: CountType.Add)
         addListViewRight(listPath)
-        
         listViews.last!.updateFavouritesButton()
         
         // Horizontal Scrolling: Assign scrollView delegate
-        listViews.last!.itemsTableView.mainScrollView = scrollView
-        
-    }
-    
-    func getPathWithTrailingSlash(path: String) -> String {
-        if (path.substringFromIndex(path.endIndex.advancedBy(-1)) != "/") {
-            return path + "/"
-        } else {
-            return path
-        }
+        listViews.last!.itemsTableView.mainScrollView = scrollView        
     }
         
     func getListViewIndexByIdentifier(createdDate: String) -> Int? {
