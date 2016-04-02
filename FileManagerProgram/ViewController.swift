@@ -163,21 +163,8 @@ class ViewController: NSViewController {
         return SidebarItemDoc(fullName: name, icon: image, path: path)
     }
     
-    func getFolderNameFromPath(var path: String) -> String {
-        // Remove trailing slash if it's there
-        if (path.substringFromIndex(path.endIndex.advancedBy(-1)) == "/") {
-            path = path.substringToIndex(path.endIndex.advancedBy(-1))
-        }
-        // Remove path up to the preceding slash
-        var i = 0
-        while path.substringFromIndex(path.startIndex.advancedBy(i)).containsString("/") {
-            i++
-        }
-        return path.substringFromIndex(path.startIndex.advancedBy(i))
-    }
-    
     func showListView() {
-        let _ = NSTimer.scheduledTimerWithTimeInterval(0.1, target:self, selector: Selector("scrollToRight"), userInfo: nil, repeats: false)
+        let _ = NSTimer.scheduledTimerWithTimeInterval(1.0, target:self, selector: Selector("scrollToRight"), userInfo: nil, repeats: false)
     }
     
     func refresh() {
@@ -194,21 +181,12 @@ class ViewController: NSViewController {
     }
     
     func openListView(listPath: String) {
+        updateLog(getPathWithTrailingSlash(listPath), type: CountType.Add)
         addListViewRight(listPath)
-        
         listViews.last!.updateFavouritesButton()
         
         // Horizontal Scrolling: Assign scrollView delegate
-        listViews.last!.itemsTableView.mainScrollView = scrollView
-        
-    }
-    
-    func getPathWithTrailingSlash(path: String) -> String {
-        if (path.substringFromIndex(path.endIndex.advancedBy(-1)) != "/") {
-            return path + "/"
-        } else {
-            return path
-        }
+        listViews.last!.itemsTableView.mainScrollView = scrollView        
     }
         
     func getListViewIndexByIdentifier(createdDate: String) -> Int? {
@@ -271,8 +249,14 @@ class ViewController: NSViewController {
         }
     }
     
+    func sortListViewAtIndex(sender: AnyObject?, index: Int) {
+        listViews[index].sortType = sender!.titleOfSelectedItem!!
+        listViews[index].sortList()
+    }
+    
     func removeListViewAtIndex(index: Int) {
-        //update listViews array
+        updateLog(listViews[index].listPath, type: CountType.Remove)
+
         if numListViews > 0 {
             listViews[index].view.removeFromSuperview()
             listViews.removeAtIndex(index)

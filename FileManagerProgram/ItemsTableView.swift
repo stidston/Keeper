@@ -10,6 +10,7 @@ import Cocoa
 
 class ItemsTableView: NSTableView {
     var mainScrollView: NSScrollView?
+//    var listViewController: ListViewController?
     
     override func scrollWheel(theEvent: NSEvent) {
         if theEvent.scrollingDeltaY == 0 {
@@ -21,5 +22,14 @@ class ItemsTableView: NSTableView {
             // It's a vertical scroll -> behave normally
             super.scrollWheel(theEvent)
         }
-    }    
+    }
+    
+//    func doubleClick() {
+//        Swift.print("doubleClick")
+//        let selectedDoc = listViewController!.selectedItemDoc()
+//        
+//        if selectedDoc != nil {
+//            listViewController!.openItem(selectedDoc)
+//        }
+//    }
 }

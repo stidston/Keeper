@@ -14,12 +14,13 @@
                 <outlet property="itemsTableView" destination="NIZ-9j-rLy" id="Aux-Sq-Fxd"/>
                 <outlet property="itemsTitleView" destination="VT9-vO-Cv3" id="MAj-0d-RQv"/>
                 <outlet property="navigationButton" destination="Uk5-Kk-Dvz" id="GXv-b5-hGr"/>
+                <outlet property="showPopover" destination="d6w-5f-KOa" id="GY4-Fq-hpb"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView identifier="ListView" focusRingType="exterior" id="Hz6-mo-xeY" customClass="MyView" customModule="FileManagerProgram">
+        <customView identifier="ListView" focusRingType="exterior" id="Hz6-mo-xeY">
             <rect key="frame" x="0.0" y="0.0" width="230" height="402"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
@@ -62,7 +63,7 @@
                                                         <animations/>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="ydC-0y-Jle"/>
                                                     </imageView>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nQJ-qz-VBm">
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nQJ-qz-VBm" customClass="ItemTextField" customModule="FileManagerProgram" customModuleProvider="target">
                                                         <rect key="frame" x="30" y="0.0" width="177" height="17"/>
                                                         <animations/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="0zv-3V-7Zy">
@@ -71,8 +72,21 @@
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
+                                                    <textField hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8XB-Na-7C5" customClass="ItemTextField" customModule="FileManagerProgram" customModuleProvider="target">
+                                                        <rect key="frame" x="30" y="0.0" width="180" height="17"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="180" id="mMa-4B-lSs"/>
+                                                        </constraints>
+                                                        <animations/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" title="The quick brown fox jumps" placeholderString="" drawsBackground="YES" id="9N4-hu-KAf">
+                                                            <font key="font" metaFont="cellTitle"/>
+                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
                                                 </subviews>
                                                 <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="8XB-Na-7C5" secondAttribute="bottom" id="4m2-TS-bDp"/>
                                                     <constraint firstAttribute="trailing" secondItem="nQJ-qz-VBm" secondAttribute="trailing" constant="20" id="79T-NY-Ipf"/>
                                                     <constraint firstItem="nQJ-qz-VBm" firstAttribute="top" secondItem="XpA-24-Wxt" secondAttribute="top" id="BZx-9G-cub"/>
                                                     <constraint firstAttribute="bottom" secondItem="nQJ-qz-VBm" secondAttribute="bottom" id="JXQ-QG-bBu"/>
@@ -80,9 +94,11 @@
                                                     <constraint firstItem="nQJ-qz-VBm" firstAttribute="leading" secondItem="XpA-24-Wxt" secondAttribute="leading" constant="32" id="OYU-MY-wBO"/>
                                                     <constraint firstItem="nQJ-qz-VBm" firstAttribute="leading" secondItem="cap-H5-asf" secondAttribute="trailing" constant="6" id="RZW-fU-UGC"/>
                                                     <constraint firstItem="cap-H5-asf" firstAttribute="centerY" secondItem="nQJ-qz-VBm" secondAttribute="centerY" id="SfW-XK-Jab"/>
+                                                    <constraint firstItem="8XB-Na-7C5" firstAttribute="leading" secondItem="XpA-24-Wxt" secondAttribute="leading" constant="30" id="URt-h1-SWN"/>
                                                     <constraint firstItem="nQJ-qz-VBm" firstAttribute="top" secondItem="XpA-24-Wxt" secondAttribute="top" id="Xok-I7-SIC"/>
                                                     <constraint firstItem="cap-H5-asf" firstAttribute="leading" secondItem="XpA-24-Wxt" secondAttribute="leading" constant="10" id="cB3-SN-db1"/>
                                                     <constraint firstItem="cap-H5-asf" firstAttribute="bottom" secondItem="nQJ-qz-VBm" secondAttribute="bottom" id="gHd-9W-biN"/>
+                                                    <constraint firstItem="8XB-Na-7C5" firstAttribute="top" secondItem="XpA-24-Wxt" secondAttribute="top" id="i6b-iT-e0S"/>
                                                     <constraint firstAttribute="bottom" secondItem="cap-H5-asf" secondAttribute="bottom" id="irh-IO-0i8"/>
                                                     <constraint firstItem="cap-H5-asf" firstAttribute="top" secondItem="XpA-24-Wxt" secondAttribute="top" constant="1" id="lwu-oe-al0"/>
                                                     <constraint firstItem="nQJ-qz-VBm" firstAttribute="leading" secondItem="cap-H5-asf" secondAttribute="trailing" constant="6" id="sgf-uf-cDa"/>
@@ -100,6 +116,7 @@
                                 <connections>
                                     <outlet property="dataSource" destination="-2" id="1Kf-y1-fyN"/>
                                     <outlet property="delegate" destination="-2" id="6Vg-Ft-0s2"/>
+                                    <outlet property="menu" destination="AW2-Ul-jR8" id="QPU-20-9XK"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -140,8 +157,8 @@
                 <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d6w-5f-KOa">
                     <rect key="frame" x="208" y="377" width="15" height="19"/>
                     <animations/>
-                    <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="favourite_outline" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="j1i-hk-55X">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                    <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="NSSmartBadgeTemplate" imagePosition="only" alignment="center" inset="2" id="j1i-hk-55X">
+                        <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                         <font key="font" metaFont="systemBold" size="12"/>
                     </buttonCell>
                     <connections>
@@ -180,10 +197,33 @@
             <point key="canvasLocation" x="412" y="562"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="2fQ-XF-Y1O"/>
+        <menu id="AW2-Ul-jR8">
+            <items>
+                <menuItem title="Rename" id="ER8-rP-10j">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="rename:" target="-2" id="IRC-tp-64V"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Move to Trash" id="zR0-87-eDd">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="moveItemToTrash:" target="-2" id="N8X-iC-w1v"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Show in Finder" id="POR-XB-UfT">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showInFinder:" target="-2" id="V5q-ny-jhs"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="632.5" y="565.5"/>
+        </menu>
     </objects>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSGoLeftTemplate" width="9" height="12"/>
-        <image name="favourite_outline" width="19" height="17"/>
+        <image name="NSSmartBadgeTemplate" width="14" height="14"/>
     </resources>
 </document>

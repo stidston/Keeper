@@ -23,8 +23,7 @@ class ItemData: NSObject {
 
 class ItemDoc: NSObject {
     var data: ItemData
-    var modDate: NSDate?
-    var creDate: NSDate?
+    var oneDate: NSDate?
     var icon: NSImage?
     
     override init() {
@@ -37,8 +36,7 @@ class ItemDoc: NSObject {
     }
     
     func setDate(date: NSDate?) {
-        self.modDate = date
-        self.creDate = date
+        self.oneDate = date
     }
 }
 
